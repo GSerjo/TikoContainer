@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Source\UnitTests\UnitTests.csproj", "{32231D9E-EAF6-4607-82B1-2BFE20081E5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiko", "Source\Tiko\Tiko.csproj", "{542F5FA5-7435-4466-A776-ECFE06CEF0C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Default|Any CPU = Default|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32231D9E-EAF6-4607-82B1-2BFE20081E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32231D9E-EAF6-4607-82B1-2BFE20081E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32231D9E-EAF6-4607-82B1-2BFE20081E5E}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{32231D9E-EAF6-4607-82B1-2BFE20081E5E}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{32231D9E-EAF6-4607-82B1-2BFE20081E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32231D9E-EAF6-4607-82B1-2BFE20081E5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{542F5FA5-7435-4466-A776-ECFE06CEF0C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{542F5FA5-7435-4466-A776-ECFE06CEF0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{542F5FA5-7435-4466-A776-ECFE06CEF0C2}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{542F5FA5-7435-4466-A776-ECFE06CEF0C2}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{542F5FA5-7435-4466-A776-ECFE06CEF0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{542F5FA5-7435-4466-A776-ECFE06CEF0C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Source\UnitTests\UnitTests.csproj
+	EndGlobalSection
+EndGlobal
