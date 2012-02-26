@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Tiko
 {
-	public static class TikoContainer
+    public static class TikoContainer
     {
         private static readonly ConcurrentDictionary<Type, RegisteredObject> _registeredObjects =
             new ConcurrentDictionary<Type, RegisteredObject>();
