@@ -10,9 +10,13 @@ Currently TikoContainer supports following features:
   * Resolve type and inject dependencies
   * Property injection
   * BuildUp existing instance (inject dependencies)
+  * Clear IoC container
 
-Using TikContainer
-==================
+Using TikoContainer
+-------------------
+
+### Register type ###
+
 
 Register type thru Register<TFrom, TTo>() or Register<T>() methods. All type will be registered as Singleton.
 
@@ -21,12 +25,19 @@ Register type thru Register<TFrom, TTo>() or Register<T>() methods. All type wil
 		TikoContainer.Register<IUserAccountRepository, UserAccountRepository>();
 		TikoContainer.Register<PasswordManager>();
 	}
+
+### Resolve by type ###
 	
 Resolve object by type. _userAccountRepository will be initialised with an instance of UserAccountRepository.
 
 	var _userAccountRepository = TikoContainer.Resolve<IUserAccountRepository>();
+	
 
-Resolve dependency thru property injection. UserAccountRepository and PasswordManager properties will be injected after call TikoContainer.Resolve<UserAccountManager>() 
+### Resolve with property injection ###
+
+Resolve dependency thru property injection. UserAccountRepository and PasswordManager properties will be injected after call 			
+
+	TikoContainer.Resolve<UserAccountManager>() 
 	
     public class UserAccountManager
     {
@@ -45,6 +56,20 @@ Resolve dependency thru property injection. UserAccountRepository and PasswordMa
         public PasswordManager PasswordManager { get; set; }
     }
 	
+### Resolve dependencies of an exsisting object ###
+
+UserAccountRepository and PasswordManager properties will be injected after BuildUp call.
+
+	var _userAccountManager = new UserAccountManager();
+	TikoContainer.BuildUp(_userAccountManager);
+	
+### Clear TikoContainer ###
+
+Clear IoC container cache, all registered types will be removed.
+
+	TikoContainer.Clear();
+
+
 
 
 
