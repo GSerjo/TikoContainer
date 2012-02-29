@@ -1,13 +1,14 @@
 using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Tiko
 {
     public static class TikoContainer
     {
-        private static readonly ConcurrentDictionary<Type, RegisteredObject> _registeredObjects =
-            new ConcurrentDictionary<Type, RegisteredObject>();
+        private static List<RegisteredObject> _registeredObjects =
+            new List<RegisteredObject>();
 
         /// <summary>
         /// Resolve dependencies on existing object.
@@ -26,7 +27,7 @@ namespace Tiko
         /// </summary>
         public static void Clear()
         {
-            _registeredObjects.Clear();
+            _registeredObjects = new List<RegisteredObject>();
         }
 
         /// <summary>
@@ -47,8 +48,8 @@ namespace Tiko
         public static void Register<TFrom, TTo>()
             where TTo : TFrom, new()
         {
-            var registeredObject = new RegisteredObject(() => new TTo());
-            _registeredObjects[typeof (TFrom)] = registeredObject;
+            var registeredObject = new RegisteredObject(() => new TTo(), typeof (TFrom));
+            _registeredObjects.Add(registeredObject);
         }
 
         /// <summary>
@@ -59,13 +60,17 @@ namespace Tiko
         /// <returns>Result object.</returns>
         public static T Resolve<T>()
         {
+            T instance;
             object resolvedObject;
-            bool isResolved = ResolveObject(typeof (T), out resolvedObject);
+            bool isResolved = ResolveObject(typeof(T), out resolvedObject);
             if (isResolved)
             {
-                return (T) resolvedObject;
+                instance = (T)resolvedObject;
             }
-            var instance = Activator.CreateInstance<T>();
+            else
+            {
+                instance = Activator.CreateInstance<T>();
+            }
             return DoBuildUp(instance);
         }
 
@@ -98,8 +103,8 @@ namespace Tiko
 
         private static bool ResolveObject(Type typeToResolve, out object resolvedObject)
         {
-            RegisteredObject result;
-            if (!_registeredObjects.TryGetValue(typeToResolve, out result))
+            RegisteredObject result = _registeredObjects.FirstOrDefault(x => x.ObjectType == typeToResolve);
+            if (result == null)
             {
                 resolvedObject = null;
                 return false;
@@ -112,8 +117,9 @@ namespace Tiko
         {
             private readonly Lazy<object> _concreteValue;
 
-            public RegisteredObject(Func<object> func)
+            public RegisteredObject(Func<object> func, Type objectType)
             {
+                ObjectType = objectType;
                 _concreteValue = new Lazy<object>(func);
             }
 
@@ -121,6 +127,8 @@ namespace Tiko
             {
                 get { return _concreteValue.Value; }
             }
+
+            public Type ObjectType { get; private set; }
         }
     }
 
